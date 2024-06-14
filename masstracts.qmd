@@ -1,0 +1,18 @@
+---
+title: "Mass Tracts"
+author: "Dinesh Satyavolu"
+format: html
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+x <- read_csv(file = "mass-tracts.csv")
+```
+
+```{r}
+x |> ggplot(aes(x = med_income, fill = color)) + geom_density(alpha = 0.5)
+```
+
