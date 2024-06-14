@@ -2,17 +2,46 @@
 title: "Mass Tracts"
 author: "Dinesh Satyavolu"
 format: html
+
+execute: 
+  echo: false
 ---
 
 ```{r}
+#| message: false
 library(tidyverse)
+# library()
 ```
 
 ```{r}
-x <- read_csv(file = "mass-tracts.csv")
+x <- read_csv(file = "mass-tracts.csv", show_col_types = FALSE)
 ```
 
 ```{r}
-x |> ggplot(aes(x = med_income, fill = color)) + geom_density(alpha = 0.5)
+x <- ggplot(data = x, aes(x = med_income, fill = race)) +
+  geom_density(alpha = 0.4, color = "black", adjust = 2) +
+  labs(
+    title = "Median Income for Massachusetts Census Tracts",
+    subtitle = "The richest tracts are White",
+    x = "Median Income",
+    y = NULL,
+    caption = "Race of each tract is determined by the most numerous racial group present in that tract. \n Data from the American Community Survey 2022.", fill = "Race"
+  ) +
+  scale_fill_manual(values = c("Hispanic" = "#F8766D", "Black" = "#7CAE00", "Asian" = "#00BFC4", "White" = "#C77CFF")) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),
+    plot.subtitle = element_text(size = 14),
+    plot.caption = element_text(size = 10),
+    legend.title = element_text(size = 14),
+    legend.text = element_text(size = 12),
+    axis.text.y = element_blank()
+  )
+```
+
+```{r}
+#| message: false
+#| warning: false
+print(x)
 ```
 
